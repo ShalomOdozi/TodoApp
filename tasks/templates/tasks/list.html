@@ -1,0 +1,86 @@
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<style>
+body{
+	background-color: #DE89BE ;
+}
+#title{
+	background-color: #ffffff;
+	margin: 20px auto;
+	padding: 20px;
+	width: 600px;
+	text-align: center;
+	border-radius: 5px;
+	box-sizing: border-box;
+	box-shadow: 6px 2px 30px 0px;
+
+}
+
+input{
+	width: 100%;
+	padding: 10px;
+	margin: 5px;
+	border-radius: 3px
+}
+.btn-info{
+	background-color: #88CCF1;
+}
+.btn-success{
+	background-color:#FDCFF3  ;
+	border-color: #C297B8;
+}
+.btn-success:hover{
+	background-color:#C297B8 ;
+}
+
+.center-column{
+	width: 600px;
+	margin: 20px auto;
+	padding: 20px;
+	background-color: #ffffff;
+	border-radius: 5px;
+	border-radius: 3px;
+	box-shadow: 6px 2px 30px 0px
+   
+
+}
+.item-row{
+margin: 10px;
+padding: 20px;
+background-color:#f1f3f8;
+font-size: 15px;
+box-shadow: 0px -1px 10px -4px
+
+
+}
+	
+</style>
+
+
+<h3 id="title">To Do List </h3>
+
+<div class="center-column">
+
+	<form method="POST" action="/">
+		{% csrf_token %}
+		{{form.title}}
+		<input class="btn btn-info" type="submit" name="Create Task">
+	</form>
+
+	<div class="todo-list">
+
+	{% for task in tasks %}
+		<div class="item-row">
+			<a class="btn btn-info" href="{% url 'update_task' task.id %}">Update</a>
+			<a class="btn btn-success" href="{% url 'delete' task.id %}">Delete</a>
+
+			{% if task.complete == True %}
+			<strike>{{task}}</strike>
+			{% else %}
+			<span>{{task}}</span>
+			{% endif %}
+		</div>
+	{% endfor %}
+	</div>
+</div>
+
